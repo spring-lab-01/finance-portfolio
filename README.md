@@ -32,3 +32,8 @@ POST Users
 ```
 curl http://localhost:8080/users ^ -H "Content-Type: application/json" ^ -d @user_post.json
 ```
+
+
+# References
+- https://www.baeldung.com/spring-boot-react-crud
+- https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-react
