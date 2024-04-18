@@ -25,3 +25,10 @@ replay_pid*
 backend/.mvn/wrapper/maven-wrapper.jar
 backend/.mvn/wrapper/maven-wrapper.properties
 backend/.mvn/wrapper/maven-wrapper.jar
+backend/frontend/node/*
+backend/frontend/yarn.lock
+frontend/node/*
+frontend/yarn.lock
+frontend/node_modules/.yarn-integrity
+.vscode/settings.json
+

@@ -37,3 +37,14 @@ curl http://localhost:8080/users ^ -H "Content-Type: application/json" ^ -d @use
 # References
 - https://www.baeldung.com/spring-boot-react-crud
 - https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-react
+
+
+
+# UI Details 
+- npm --version :  10.5.0
+- node --version : v21.7.3
+- frontend create commands
+```
+npx create-react-app frontend
+npm install --save bootstrap@5.1 react-cookie@4.1.1 react-router-dom@5.3.0 reactstrap@8.10.0
+```
