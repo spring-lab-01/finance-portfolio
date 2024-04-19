@@ -21,7 +21,7 @@ class UserEdit extends Component {
 
     async componentDidMount() {
         if (this.props.match.params.id !== 'new') {
-            const user = await (await fetch(`/users/${this.props.match.params.id}`)).json();
+            const user = await (await fetch(`/api/users/${this.props.match.params.id}`)).json();
             this.setState({item: user});
         }
     }
@@ -39,7 +39,7 @@ class UserEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
     
-        await fetch('/users' + (item.id ? '/' + item.id : ''), {
+        await fetch('/api/users' + (item.id ? '/' + item.id : ''), {
             method: (item.id) ? 'PUT' : 'POST',
             headers: {
                 'Accept': 'application/json',

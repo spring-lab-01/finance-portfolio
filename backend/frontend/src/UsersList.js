@@ -12,13 +12,13 @@ class UsersList extends Component {
     }
 
     componentDidMount() {
-        fetch('/users')
+        fetch('/api/users')
             .then(response => response.json())
             .then(data => this.setState({users: data}));
     }
 
     async remove(id) {
-        await fetch(`/users/${id}`, {
+        await fetch(`/api/users/${id}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +43,7 @@ class UsersList extends Component {
                 <td>{user.email}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/users/" + user.id}>Edit</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/api/users/" + user.id}>Edit</Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(user.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>
