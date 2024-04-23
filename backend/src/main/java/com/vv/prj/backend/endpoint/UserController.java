@@ -49,7 +49,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) throws URISyntaxException {
         User existingUser = userRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
-        existingUser.setName(user.getEmail());
+        existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
         existingUser = userRepository.save(existingUser);
         return ResponseEntity.ok(existingUser);

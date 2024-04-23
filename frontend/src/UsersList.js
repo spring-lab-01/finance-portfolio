@@ -43,7 +43,7 @@ class UsersList extends Component {
                 <td>{user.email}</td>
                 <td>
                     <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/api/users/" + user.id}>Edit</Button>
+                        <Button size="sm" color="primary" tag={Link} to={"/users/" + user.id}>Edit</Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(user.id)}>Delete</Button>
                     </ButtonGroup>
                 </td>

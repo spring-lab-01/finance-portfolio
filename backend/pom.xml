@@ -117,7 +117,7 @@
 						<outputDirectory>${basedir}/target/classes/static</outputDirectory>
 						<resources>
 							<resource>
-								<directory>frontend/build</directory>
+								<directory>../frontend/build</directory>
 							</resource>
 						</resources>
 					</configuration>
@@ -129,7 +129,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
 				<configuration>
-       				<workingDirectory>frontend</workingDirectory>
+       				<workingDirectory>../frontend</workingDirectory>
     			</configuration>
 				<executions>
 					<execution>
