@@ -1,12 +1,24 @@
-# finance-portfolio
-Finance portfolio App 
+# Finance portfolio App 
 
 1. User can create portfolios
 2. User can have multiple portfolios
 2. User can create/edit/delete accounts to a portfolio 
 3. User can add balance to an account
 4. User can see portfolio analytics on dashboard 
-    
+
+# Tech Stack
+- Java 17
+- Spring boot 3
+- React
+
+## Backend 
+created from - https://start.spring.io/
+
+## UI Details
+- npm --version :  10.5.0
+- node --version : v21.7.3
+
+- Frontend using intellij - ![](ui-create-img.png)
 
 # DB Tables:
 
@@ -39,15 +51,3 @@ curl http://localhost:8080/users ^ -H "Content-Type: application/json" ^ -d @use
 - https://github.com/eugenp/tutorials/tree/master/spring-boot-modules/spring-boot-react
 
 
-
-# UI Details 
-- npm --version :  10.5.0
-- node --version : v21.7.3
-- frontend create commands
-```
-npx create-react-app frontend
-npm install --save bootstrap@5.1 react-cookie@4.1.1 react-router-dom@5.3.0 reactstrap@8.10.0
-```
-
-### Current Issues
-Edit user not working from localhost:3000/users
