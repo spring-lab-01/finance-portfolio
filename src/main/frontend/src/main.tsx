@@ -8,7 +8,7 @@ import Counter from "./components/Counter.tsx";
 import Header from "./components/Header.tsx";
 import Accounts from "./components/Accounts.tsx";
 import EditAccount from "./components/button/EditAccount.tsx";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import PortfolioList from "./components/PortfolioList.tsx";
 
 const router = createBrowserRouter([
     {
@@ -26,6 +26,10 @@ const router = createBrowserRouter([
     {
         path: "/account/:id",
         element: <EditAccount/>
+    },
+    {
+        path: "/portfolios",
+        element: <PortfolioList/>
     }
 ]);
 

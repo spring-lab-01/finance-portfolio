@@ -12,8 +12,7 @@ export function AccountEntry(){
                 'Content-Type': 'application/json',
             },
         }) .then(response => response.json())
-            .then(data => setEntries(data))
-            .then(body => console.log(body));
+            .then(data => setEntries(data));
     }, []);
 
     return (
