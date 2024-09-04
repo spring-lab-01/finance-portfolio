@@ -22,16 +22,13 @@ public class SpringConfiguration implements WebMvcConfigurer {
     }
 
     private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location) {
-        // 1
         String[] endpointPatterns = endpoint.endsWith("/")
                 ? new String[]{endpoint.substring(0, endpoint.length() - 1), endpoint, endpoint + "**"}
                 : new String[]{endpoint, endpoint + "/", endpoint + "/**"};
         registry
-                // 2
                 .addResourceHandler(endpointPatterns)
                 .addResourceLocations(location.endsWith("/") ? location : location + "/")
                 .resourceChain(false)
-                // 3
                 .addResolver(new PathResourceResolver() {
                     @Override
                     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {

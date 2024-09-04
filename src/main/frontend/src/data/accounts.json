@@ -1,0 +1,20 @@
+ [
+  {
+    "id": 12,
+    "name": "MutualFunds",
+    "tag": "India MF Investments",
+    "createdOn": "2024-05-08",
+    "status": "Active",
+    "totalValue": 40000,
+    "currency": "INR"
+  },
+  {
+    "id": 13,
+    "name": "80C",
+    "tag": "all 80 C investments",
+    "createdOn": "2020-03-07",
+    "status": "Active",
+    "totalValue": 20000,
+    "currency": "INR"
+  }
+]

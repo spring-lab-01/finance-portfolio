@@ -33,3 +33,6 @@ frontend-bkp/node_modules/.yarn-integrity
 
 /.idea/*
 /target/*
+/src/main/resources/static/assets/
+/src/main/resources/static/index.html
+/src/main/resources/static/vite.svg

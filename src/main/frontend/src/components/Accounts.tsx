@@ -1,30 +1,25 @@
-import EditButton from "./button/EditButton.tsx";
-import DeleteButton from "./button/DeleteButton.tsx";
 import Entries from "./Entries.tsx";
+import {useEffect, useState} from "react";
+import {Account, getAccounts} from "./AccountsService.tsx";
+import {Link} from "react-router-dom";
+
 
 function Accounts(){
-    const accounts = [
-        {
-            "id": 12,
-            "name": "MutualFunds",
-            "tag": "India MF Investments",
-            "createdOn": "2024-05-08",
-            "status": "Active",
-            "totalValue": 40000,
-            "currency": "INR"
-        },
-        {
-            "id": 13,
-            "name": "80C",
-            "tag": "all 80 C investments",
-            "createdOn": "2020-03-07",
-            "status": "Active",
-            "totalValue": 20000,
-            "currency": "INR"
-        }
-    ]
-    const totalValue = accounts.map(p => p.totalValue).reduce((a,b) => a+b);
+    const [accounts, setAccounts] = useState<Account[]>([]);
+    const [totalValue, setTotalValue] =  useState<number>(0.0);
 
+    useEffect(() => {
+        return () =>{
+            const set = async () => {
+                setAccounts(await getAccounts())
+            }
+            set()
+            if(accounts && accounts.length > 0)
+                setTotalValue(accounts.map(p => p.totalValue).reduce((a,b) => a+b));
+        }
+
+
+    }, []);
 
     const listaccounts = accounts.map(portfolio =>
         <tr>
@@ -36,17 +31,16 @@ function Accounts(){
             <td>{portfolio.totalValue}</td>
             <td>{portfolio.currency}</td>
             <td>
-                <EditButton/>
-                <DeleteButton/>
+               <Link to={"/account"} state={portfolio}>Edit</Link>
             </td>
         </tr>
     );
 
 
     return (
-        <div className={"container"}>
+        <div>
             <h3>Accounts - Total Value {totalValue}</h3>
-            <table>
+            <table className='table table-striped'>
                 <thead>
                 <tr>
                     <th>#</th>

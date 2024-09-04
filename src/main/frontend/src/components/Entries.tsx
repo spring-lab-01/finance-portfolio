@@ -1,57 +1,40 @@
-import EditButton from "./button/EditButton.tsx";
-import DeleteButton from "./button/DeleteButton.tsx";
+import {useEffect, useState} from "react";
+import {Entry} from "./Entry.tsx";
 
-function AccountEntry(){
-    const entries = [
-        {
-            "id": 12,
-            "month": "04",
-            "year": "2024",
-            "value": 40000
-        },
-        {
-            "id": 12,
-            "month": "04",
-            "year": "2024",
-            "value": 40000
-        }
-    ]
+export function AccountEntry(){
 
+    const [entries, setEntries] = useState<Entry[]>([]);
 
-    const listaccounts = entries.map(entry =>
-        <tr>
-            <td>{entry.id}</td>
-            <td>{entry.month}-{entry.year}</td>
-            <td>{entry.value}</td>
-            <td>
-                <EditButton/>
-                <DeleteButton/>
-            </td>
-        </tr>
-    );
-
-
-    function addAction() {
-
-    }
+    useEffect(() => {
+        fetch("/api/entries", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }) .then(response => response.json())
+            .then(data => setEntries(data))
+            .then(body => console.log(body));
+    }, []);
 
     return (
-        <div className={"container"}>
-            <h3>Entries</h3>
-            <button onClick={addAction}> Add New Entry </button>
-            <table>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Month-Year</th>
-                    <th>Value</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {listaccounts}
-                </tbody>
-            </table>
+        <div>
+            <h1>Entries</h1>
+            <main>
+                <div>
+                    <label>Year</label>
+                    <label>Month</label>
+                    <label>Value</label>
+                </div>
+                {entries.map((entry) => {
+                    return (
+                        <div key={entry.id}>
+                            <input type="number" value={entry.year}/>
+                            <input type="number" value={entry.month}/>
+                            <input type="number" value={entry.value}/>
+                        </div>
+                    )
+                })}
+            </main>
         </div>
     )
 }

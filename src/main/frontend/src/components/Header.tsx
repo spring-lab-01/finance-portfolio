@@ -1,10 +1,13 @@
 function Header(){
     return(
-        <div className={"bg-dark header-container"}>
+        <div>
             <nav>
-                <a href="/">Home</a> |
-                <a href="/accounts">Accounts</a>
+                <h1>Finance PortFolio App</h1>
+                <a href="/">Home</a> &nbsp;
+                <a href="/accounts">Accounts</a> &nbsp;
+                <a href="/portfolios">Portfolios</a>
             </nav>
+            <hr/>
         </div>
     )
 }

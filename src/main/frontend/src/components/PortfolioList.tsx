@@ -1,5 +1,4 @@
 import EditButton from "./button/EditButton.tsx";
-import DeleteButton from "./button/DeleteButton.tsx";
 
 
 function PortfolioList() {
@@ -38,7 +37,6 @@ function PortfolioList() {
             <td>{portfolio.currency}</td>
             <td>
                 <EditButton/>
-                <DeleteButton/>
             </td>
         </tr>
     );
