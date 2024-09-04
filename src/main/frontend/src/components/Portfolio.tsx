@@ -1,6 +1,5 @@
 interface Portfolio{
     name: string,
-    tag: string,
     createdOn: string,
     status: string,
     totalValue: number,

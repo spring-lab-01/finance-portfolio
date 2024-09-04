@@ -6,8 +6,7 @@ import {createBrowserRouter, RouterProvider,} from "react-router-dom";
 import App from "./App.tsx";
 import Counter from "./components/Counter.tsx";
 import Header from "./components/Header.tsx";
-import Accounts from "./components/Accounts.tsx";
-import EditAccount from "./components/button/EditAccount.tsx";
+import AccountsList from "./components/AccountsList.tsx";
 import PortfolioList from "./components/PortfolioList.tsx";
 
 const router = createBrowserRouter([
@@ -21,11 +20,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/accounts",
-        element: <Accounts/>
-    },
-    {
-        path: "/account/:id",
-        element: <EditAccount/>
+        element: <AccountsList/>
     },
     {
         path: "/portfolios",
