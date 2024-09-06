@@ -19,3 +19,7 @@ created from - https://start.spring.io/
 - node --version : v21.7.3
 
 - Frontend using intellij - ![](ui-create-img.png)
+
+
+## Frontend references
+ - https://mui.com/material-ui/getting-started/
