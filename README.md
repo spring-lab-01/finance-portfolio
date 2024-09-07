@@ -1,10 +1,6 @@
-# Finance portfolio App 
-
-1. User can create portfolios
-2. User can have multiple portfolios
-2. User can create/edit/delete accounts to a portfolio 
-3. User can add balance to an account
-4. User can see portfolio analytics on dashboard 
+# Finance portfolio App
+ - User can add/edit/remove their investment accounts 
+ - User will be able to see Portfolio values grouped by Currency
 
 # Tech Stack
 - Java 17
@@ -23,3 +19,19 @@ created from - https://start.spring.io/
 
 ## Frontend references
  - https://mui.com/material-ui/getting-started/
+
+
+## How to run in local 
+- run command to build jar along with UI
+```
+mvn package 
+```
+- run command to start application 
+```
+java -jar .\target\backend-0.0.1-SNAPSHOT.jar
+```
+
+- Application will start at - http://localhost:8080
+- login using 
+  - username - admin@email.com
+  - password - password
