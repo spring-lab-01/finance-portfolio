@@ -10,6 +10,7 @@ import AccountsList from "./components/AccountsList.tsx";
 import Myprofile from "./components/Myprofile.tsx";
 import AccountEdit from "./components/AccountEdit.tsx";
 import AccountCreate from "./components/AccountCreate.tsx";
+import {Box, Container} from "@mui/material";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-      <Header />
-      <RouterProvider router={router} />
+      <Container maxWidth="lg">
+          <Box sx={{ my: 4 }}>
+              <Header />
+              <RouterProvider router={router} />
+          </Box>
+      </Container>
   </React.StrictMode>,
 )

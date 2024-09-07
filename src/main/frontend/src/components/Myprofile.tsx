@@ -16,7 +16,7 @@ export function Myprofile() {
 
     return (
         <div className={"container"}>
-            <h4>Current Logged In user : {user}</h4>
+            <h2> Logged in user : {user}</h2>
         </div>
     )
 }

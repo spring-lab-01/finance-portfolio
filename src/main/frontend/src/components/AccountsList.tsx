@@ -10,15 +10,21 @@ import Paper from '@mui/material/Paper';
 import {Alert, Button} from "@mui/material";
 import {styled } from '@mui/material/styles';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import AccountCreate from "./AccountCreate.tsx";
 
 export function AccountsList() {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+    const [createNew, setCreateNew] = useState(false);
 
     const alerts = searchParams.get("alerts");
     console.log(useParams());
     useEffect(() => {
+        loadAccounts()
+    }, []);
+
+    const loadAccounts = () =>{
         fetch("/api/accounts", {
             method: 'GET',
             headers: {
@@ -26,8 +32,7 @@ export function AccountsList() {
             },
         }).then(response => response.json())
             .then(data => setAccounts(data));
-    }, []);
-
+    }
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
@@ -49,6 +54,9 @@ export function AccountsList() {
         //navigate(`/accounts?alerts=success-delete`)
     }
 
+    const handleCreateNew = () =>{
+        setCreateNew(true);
+    }
 
     const inrPortfolios = accounts.filter(p=> p.currency == 'INR');
     const usdPortfolios = accounts.filter(p=> p.currency == 'USD');
@@ -62,12 +70,12 @@ export function AccountsList() {
             {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert>}
             {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert>}
             {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert>}
-
-            <h4>Portfolios</h4>
+            {createNew && <AccountCreate/> }
+            <h1>Portfolio Summary By Currency</h1>
             <h5>INR Value - {inrPortfolioValue} </h5>
             <h5>USD value - {usdPortfolioValue} </h5>
-            <h4>Accounts</h4>
-            <Button variant="contained" onClick={() => navigate(`/accounts/create`)}>Create New Account</Button>
+            <h1>Accounts <Button variant="contained" onClick={() => handleCreateNew()} sx={{ marginLeft: 100}}>+ Add New Account</Button></h1>
+
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="customized table">
                     <TableHead>
@@ -82,9 +90,7 @@ export function AccountsList() {
                     <TableBody>
                         {accounts.map((row) => (
                             <TableRow
-                                key={row.name}
-                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                            >
+                                key={row.name}>
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.totalValue}</TableCell>
                                 <TableCell> {row.currency}</TableCell>
