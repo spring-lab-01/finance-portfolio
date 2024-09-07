@@ -39,10 +39,24 @@ export function AccountsList() {
     }));
 
 
+    const handleDelete = (id: number) => {
+        fetch(`/api/accounts/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        //navigate(`/accounts?alerts=success-delete`)
+    }
+
+
     return (
         <div>
             {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert> }
+            {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert> }
+            {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert> }
 
+            <Button variant="contained" onClick={() => navigate(`/accounts/create`)}>Create New Account</Button>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="customized table">
                     <TableHead>
@@ -66,6 +80,7 @@ export function AccountsList() {
                                 <TableCell>{row.status}</TableCell>
                                 <TableCell>
                                     <Button variant="contained" onClick={() => navigate(`/accounts/${row.id}`)}>Edit</Button>
+                                    <Button variant="outlined" onClick={() => handleDelete(row.id)}>Delete</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
