@@ -16,13 +16,23 @@ public class AccountsController {
 
     @PostMapping
     public ResponseEntity<Account> saveAccount(@RequestBody Account account){
-        System.out.println(account);
         this.account = account;
         return new ResponseEntity<>(account, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Account> updateAccount(@RequestBody Account account){
+        this.account = account;
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
     @GetMapping
     public List<Account> getAccounts(){
         return List.of(account);
+    }
+
+    @GetMapping("/{id}")
+    public Account getAccountsById(@PathVariable Long id){
+        return account;
     }
 }
