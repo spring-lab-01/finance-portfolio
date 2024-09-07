@@ -2,13 +2,13 @@ import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {Account} from "./Account.tsx";
 import {Box, Button, Modal, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
-
+import {useNavigate} from "react-router-dom";
 
 
 export function AccountEdit() {
     const { id } = useParams();
     const [selectedAccount, setSelectedAccount] = useState<Account>(new Account());
-
+    const navigate = useNavigate();
     useEffect(() => {
          fetch(`/api/accounts/${id}`, {
             method: 'GET',
@@ -31,6 +31,7 @@ export function AccountEdit() {
             body: JSON.stringify(selectedAccount)
         }).then(response => response.json())
             .then(() => setOpen(false));
+        navigate(`/accounts?alerts=success`)
     }
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +60,7 @@ export function AccountEdit() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
+
             <Box
                 component="form"
                 sx={style}
@@ -66,89 +68,88 @@ export function AccountEdit() {
                 autoComplete="off"
                 onSubmit={(e) => handleSubmit(e)}
             >
-                <div>
-                    <h4>Editing Account #{selectedAccount.id} </h4>
-                    <br/>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <td>
-                                Name:&nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    // label="Required"
-                                    name={"name"}
-                                    defaultValue={selectedAccount.name}
-                                    value={selectedAccount.name}
-                                    onChange={handleChange}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Total Value:&nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    // label="Required"
-                                    type="number"
-                                    name={"totalValue"}
-                                    defaultValue={selectedAccount.totalValue}
-                                    value={selectedAccount.totalValue}
-                                    onChange={handleChange}
-                                    slotProps={{
-                                        inputLabel: {
-                                            shrink: true,
-                                        },
-                                    }}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Currency:&nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    // label="Required"
-                                    name={"currency"}
-                                    defaultValue={selectedAccount.currency}
-                                    value={selectedAccount.currency}
-                                    onChange={handleChange}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Status:&nbsp;&nbsp;
-                            </td>
-                            <td>
-                                <TextField
-                                    required
-                                    id="outlined-required"
-                                    // label="Required"
-                                    name={"status"}
-                                    defaultValue={selectedAccount.status}
-                                    value={selectedAccount.status}
-                                    onChange={handleChange}
-                                />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><Button type={"submit"} variant="contained"> Save </Button></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+                    <div>
+                        <h4>Editing Account #{selectedAccount.id} </h4>
+                        <br/>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    Name:&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        // label="Required"
+                                        name={"name"}
+                                        defaultValue={selectedAccount.name}
+                                        value={selectedAccount.name}
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Total Value:&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        // label="Required"
+                                        type="number"
+                                        name={"totalValue"}
+                                        defaultValue={selectedAccount.totalValue}
+                                        value={selectedAccount.totalValue}
+                                        onChange={handleChange}
+                                        slotProps={{
+                                            inputLabel: {
+                                                shrink: true,
+                                            },
+                                        }}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Currency:&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        // label="Required"
+                                        name={"currency"}
+                                        defaultValue={selectedAccount.currency}
+                                        value={selectedAccount.currency}
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Status:&nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <TextField
+                                        required
+                                        id="outlined-required"
+                                        // label="Required"
+                                        name={"status"}
+                                        defaultValue={selectedAccount.status}
+                                        value={selectedAccount.status}
+                                        onChange={handleChange}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><Button type={"submit"} variant="contained"> Save </Button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
             </Box>
         </Modal>
     )
