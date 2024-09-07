@@ -7,7 +7,7 @@ import App from "./App.tsx";
 import Counter from "./components/Counter.tsx";
 import Header from "./components/Header.tsx";
 import AccountsList from "./components/AccountsList.tsx";
-import PortfolioList from "./components/PortfolioList.tsx";
+import Myprofile from "./components/Myprofile.tsx";
 import AccountEdit from "./components/AccountEdit.tsx";
 import AccountCreate from "./components/AccountCreate.tsx";
 
@@ -33,8 +33,8 @@ const router = createBrowserRouter([
         element: <AccountEdit/>
     },
     {
-        path: "/portfolios",
-        element: <PortfolioList/>
+        path: "/myprofile",
+        element: <Myprofile/>
     }
 ]);
 

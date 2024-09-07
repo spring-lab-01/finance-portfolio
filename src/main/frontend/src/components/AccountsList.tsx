@@ -50,15 +50,26 @@ export function AccountsList() {
     }
 
 
+    const inrPortfolios = accounts.filter(p=> p.currency == 'INR');
+    const usdPortfolios = accounts.filter(p=> p.currency == 'USD');
+
+    const inrPortfolioValue = inrPortfolios.map(p => p.totalValue).reduce((a,b) => a+b, 0);
+    const usdPortfolioValue = usdPortfolios.map(p => p.totalValue).reduce((a,b) => a+b, 0);
+
+
     return (
         <div>
-            {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert> }
-            {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert> }
-            {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert> }
+            {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert>}
+            {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert>}
+            {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert>}
+
+            <h4>Portfolios</h4>
+            <h5>INR Value - {inrPortfolioValue} </h5>
+            <h5>USD value - {usdPortfolioValue} </h5>
             <h4>Accounts</h4>
             <Button variant="contained" onClick={() => navigate(`/accounts/create`)}>Create New Account</Button>
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="customized table">
+                <Table sx={{minWidth: 650}} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Name</StyledTableCell>
@@ -72,14 +83,15 @@ export function AccountsList() {
                         {accounts.map((row) => (
                             <TableRow
                                 key={row.name}
-                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell>{row.name}</TableCell>
                                 <TableCell>{row.totalValue}</TableCell>
                                 <TableCell> {row.currency}</TableCell>
                                 <TableCell>{row.status}</TableCell>
                                 <TableCell>
-                                    <Button variant="contained" onClick={() => navigate(`/accounts/${row.id}`)}>Edit</Button>
+                                    <Button variant="contained"
+                                            onClick={() => navigate(`/accounts/${row.id}`)}>Edit</Button>
                                     <Button variant="outlined" onClick={() => handleDelete(row.id)}>Delete</Button>
                                 </TableCell>
                             </TableRow>

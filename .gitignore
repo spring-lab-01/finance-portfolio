@@ -36,3 +36,4 @@ frontend-bkp/node_modules/.yarn-integrity
 /src/main/resources/static/assets/
 /src/main/resources/static/index.html
 /src/main/resources/static/vite.svg
+/src/main/frontend/package-lock.json

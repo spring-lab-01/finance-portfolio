@@ -10,7 +10,7 @@ function Header(){
 
             <Button
                 variant={"outlined"}>
-                <Link  href={"/portfolios"} underline="none">Portfolios</Link>
+                <Link  href={"/myprofile"} underline="none">My Profile</Link>
             </Button>
 
         </div>
