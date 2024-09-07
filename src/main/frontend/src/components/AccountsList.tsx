@@ -55,7 +55,7 @@ export function AccountsList() {
             {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert> }
             {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert> }
             {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert> }
-
+            <h4>Accounts</h4>
             <Button variant="contained" onClick={() => navigate(`/accounts/create`)}>Create New Account</Button>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="customized table">

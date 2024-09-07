@@ -1,13 +1,18 @@
+import {Button, Link} from "@mui/material";
+
 function Header(){
     return(
         <div>
-            <nav>
-                <h1>Finance PortFolio App</h1>
-                <a href="/">Home</a> &nbsp;
-                <a href="/accounts">Accounts</a> &nbsp;
-                <a href="/portfolios">Portfolios</a>
-            </nav>
-            <hr/>
+            <Button
+                variant={"outlined"}>
+                <Link  href={"/accounts"} underline="none">Accounts</Link>
+            </Button>
+
+            <Button
+                variant={"outlined"}>
+                <Link  href={"/portfolios"} underline="none">Portfolios</Link>
+            </Button>
+
         </div>
     )
 }
