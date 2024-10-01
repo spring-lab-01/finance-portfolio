@@ -10,13 +10,12 @@ import Paper from '@mui/material/Paper';
 import {Alert, Button} from "@mui/material";
 import {styled } from '@mui/material/styles';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
-import AccountCreate from "./AccountCreate.tsx";
 
 export function AccountsList() {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const [createNew, setCreateNew] = useState(false);
+    //const [createNew, setCreateNew] = useState(false);
 
     const alerts = searchParams.get("alerts");
     console.log(useParams());
@@ -55,7 +54,7 @@ export function AccountsList() {
     }
 
     const handleCreateNew = () =>{
-        setCreateNew(true);
+        navigate(`/accounts/create`);
     }
 
     const inrPortfolios = accounts.filter(p=> p.currency == 'INR');
@@ -70,7 +69,7 @@ export function AccountsList() {
             {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert>}
             {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert>}
             {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert>}
-            {createNew && <AccountCreate/> }
+
             <h1>Portfolio Summary By Currency</h1>
             <h5>INR Value - {inrPortfolioValue} </h5>
             <h5>USD value - {usdPortfolioValue} </h5>

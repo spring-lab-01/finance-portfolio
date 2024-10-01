@@ -1,29 +1,30 @@
 import {ChangeEvent, FormEvent, useState} from "react";
 import {Account} from "./Account.tsx";
-import {Box, Button, Container, Modal, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 
 export function AccountCreate() {
     const [selectedAccount, setSelectedAccount] = useState<Account>(new Account());
     const navigate = useNavigate();
 
-    const handleClose = () => setOpen(false);
+    //const handleClose = () => setOpen(false);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if(!selectedAccount.status || selectedAccount.status === '') selectedAccount.status ='Active';
+        if(!selectedAccount.currency || selectedAccount.currency === '') selectedAccount.currency ='USD';
         fetch(`/api/accounts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(selectedAccount)
-        }).then(response => response.json())
-            .then(() => setOpen(false));
+        }).then(response => response.json());
         navigate(`/accounts?alerts=success-create`)
     }
 
     const handleCancel = () => {
-        setOpen(false);
+        //setOpen(false);
         navigate(`/accounts`);
     }
 
@@ -31,40 +32,28 @@ export function AccountCreate() {
         setSelectedAccount({...selectedAccount, [event.target.name]: event.target.value});
     }
 
-    const [open, setOpen] = useState(true);
+    const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setSelectedAccount({...selectedAccount, [event.target.name]: event.target.value});
+    }
+
+    //const [open, setOpen] = useState(true);
 
     const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: '30%',
-        height: '50%',
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        my: 4
+        width: 'auto',
+        paddingLeft: '10px',
+        paddingRight:'10px',
     };
 
 
     return (
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-
-            <Container maxWidth="lg">
                     <Box
                         component="form"
                         sx={style}
                         noValidate
                         autoComplete="off"
-                        onSubmit={(e) => handleSubmit(e)}
-                    >
-                        <div>
-                            <h4>Create Account</h4>
+                        onSubmit={(e) => handleSubmit(e)}>
+                        <div className="div-margin">
+                            <h4 className="align-center">Create Account</h4>
                             <br/>
                             <table>
                                 <tbody>
@@ -111,15 +100,11 @@ export function AccountCreate() {
                                         Currency:&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <TextField
-                                            required
-                                            id="outlined-required"
-                                            // label="Required"
-                                            name={"currency"}
-                                            defaultValue={selectedAccount.currency}
-                                            value={selectedAccount.currency}
-                                            onChange={handleChange}
-                                        />
+                                        <select onChange={handleSelectChange} name={"currency"} defaultValue={"USD"}>
+                                            <option value={"USD"}>USD</option>
+                                            <option value={"INR"}>INR</option>
+                                        </select>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -127,30 +112,20 @@ export function AccountCreate() {
                                         Status:&nbsp;&nbsp;
                                     </td>
                                     <td>
-                                        <TextField
-                                            required
-                                            id="outlined-required"
-                                            // label="Required"
-                                            name={"status"}
-                                            defaultValue={selectedAccount.status}
-                                            value={selectedAccount.status}
-                                            onChange={handleChange}
-                                        />
+                                        <select onChange={handleSelectChange} name={"status"} defaultValue={"Active"}>
+                                            <option value={"Active"}>Active</option>
+                                            <option value={"InActive"}>InActive</option>
+                                        </select>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td></td>
-                                    <td><Button type={"submit"} variant="contained"> Save </Button>
-                                        <Button onClick={() => handleCancel()} variant="outlined"> Cancel </Button></td>
+                                    <td><Button type={"submit"} variant="contained"> Save </Button></td>
+                                    <td><Button onClick={() => handleCancel()} variant="outlined"> Cancel </Button></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </Box>
-            </Container>
-
-
-        </Modal>
     )
 }
 
