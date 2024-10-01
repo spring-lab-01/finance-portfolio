@@ -2,7 +2,8 @@
 
 body {
     font-family: Cambria, monospace;
-    background-color: whitesmoke;
+    font-size: 20px;
+    background-color: azure;
     justify-content: center;
     margin: 0;
 }

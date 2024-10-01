@@ -5,17 +5,17 @@ function Header(){
         <div>
             <Button
                 variant={"outlined"}>
-                <Link  href={"/"} underline="none">Home</Link>
+                <Link  href={"/"} underline="none"><b>Home</b></Link>
             </Button>
             &nbsp;
             <Button
                 variant={"outlined"}>
-                <Link  href={"/accounts"} underline="none">Accounts</Link>
+                <Link href={"/accounts"} underline="none"><b>Accounts</b></Link>
             </Button>
             &nbsp;
             <Button
                 variant={"outlined"}>
-                <Link  href={"/myprofile"} underline="none">My Profile</Link>
+                <Link href={"/myprofile"} underline="none"><b>My Profile</b></Link>
             </Button>
 
         </div>
