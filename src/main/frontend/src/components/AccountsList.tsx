@@ -10,28 +10,20 @@ import Paper from '@mui/material/Paper';
 import {Alert, Button} from "@mui/material";
 import {styled } from '@mui/material/styles';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {getAccounts, deleteAccount} from "../service/AccountService.tsx"
 
 export function AccountsList() {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    //const [createNew, setCreateNew] = useState(false);
 
     const alerts = searchParams.get("alerts");
     console.log(useParams());
     useEffect(() => {
-        loadAccounts()
+        fetchAccounts();
     }, []);
 
-    const loadAccounts = () =>{
-        fetch("/api/accounts", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => response.json())
-            .then(data => setAccounts(data));
-    }
+
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: theme.palette.common.black,
@@ -42,15 +34,14 @@ export function AccountsList() {
         },
     }));
 
+    const fetchAccounts = async () => {
+        const data = await getAccounts();
+        setAccounts(data);
+    }
 
     const handleDelete = (id: number) => {
-        fetch(`/api/accounts/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        //navigate(`/accounts?alerts=success-delete`)
+       deleteAccount(id);
+       setAccounts(accounts.filter(account=> account.id != id));
     }
 
     const handleCreateNew = () =>{

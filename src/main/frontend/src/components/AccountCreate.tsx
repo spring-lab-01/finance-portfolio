@@ -2,24 +2,17 @@ import {ChangeEvent, FormEvent, useState} from "react";
 import {Account} from "./Account.tsx";
 import {Box, Button, InputLabel, NativeSelect, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {postAccount} from "../service/AccountService.tsx"
 
 export function AccountCreate() {
     const [selectedAccount, setSelectedAccount] = useState<Account>(new Account());
     const navigate = useNavigate();
 
-    //const handleClose = () => setOpen(false);
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if(!selectedAccount.status || selectedAccount.status === '') selectedAccount.status ='Active';
         if(!selectedAccount.currency || selectedAccount.currency === '') selectedAccount.currency ='USD';
-        fetch(`/api/accounts`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(selectedAccount)
-        }).then(response => response.json());
+        postAccount(selectedAccount);
         navigate(`/accounts?alerts=success-create`)
     }
 
@@ -35,10 +28,6 @@ export function AccountCreate() {
     const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setSelectedAccount({...selectedAccount, [event.target.name]: event.target.value});
     }
-
-    //const [open, setOpen] = useState(true);
-
-
 
     return (
                     <Box
@@ -112,7 +101,6 @@ export function AccountCreate() {
                             <br/>
                             <Button type={"submit"} variant="contained"> Save </Button> &nbsp;
                             <Button onClick={() => handleCancel()} variant="outlined"> Cancel </Button>
-
                         </div>
                     </Box>
     )
