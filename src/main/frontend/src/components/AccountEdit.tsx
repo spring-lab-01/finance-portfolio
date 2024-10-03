@@ -3,31 +3,20 @@ import {Account} from "./Account.tsx";
 import {Box, Button, InputLabel, NativeSelect, TextField} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {getAccountById, saveAccount} from "../service/AccountService.tsx";
 
 
 export function AccountEdit() {
-    const { id } = useParams();
+    const {id} = useParams();
     const [selectedAccount, setSelectedAccount] = useState<Account>(new Account());
     const navigate = useNavigate();
     useEffect(() => {
-         fetch(`/api/accounts/${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }).then(response => response.json())
-            .then(data => setSelectedAccount(data));
-    },[]);
+         getAccountById(id).then(data => setSelectedAccount(data));
+    },[id]);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        fetch(`/api/accounts/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(selectedAccount)
-        }).then(response => response.json());
+        saveAccount(id, selectedAccount).then(data=> setSelectedAccount(data));
         navigate(`/accounts?alerts=success`)
     }
 
