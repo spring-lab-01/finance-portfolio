@@ -7,20 +7,24 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Alert, Button} from "@mui/material";
+import {Alert, Button, Dialog, DialogActions, DialogTitle, useMediaQuery, useTheme} from "@mui/material";
 import {styled } from '@mui/material/styles';
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {getAccounts, deleteAccount} from "../service/AccountService.tsx"
 
 export function AccountsList() {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-
     const alerts = searchParams.get("alerts");
-    console.log(useParams());
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const [deleteBox, setDeleteBox] = useState(false);
+    const [deleteId, setDeleteId] = useState<number>(0);
+
     useEffect(() => {
-        fetchAccounts();
+        getAccounts().then(data => setAccounts(data));
     }, []);
 
 
@@ -34,14 +38,18 @@ export function AccountsList() {
         },
     }));
 
-    const fetchAccounts = async () => {
-        const data = await getAccounts();
-        setAccounts(data);
+    const handleDelete = (id: number) => {
+       setDeleteBox(true);
+       setDeleteId(id);
     }
 
-    const handleDelete = (id: number) => {
-       deleteAccount(id);
-       setAccounts(accounts.filter(account=> account.id != id));
+    const handleConfirm = () =>{
+        deleteAccount(deleteId).then(() => setAccounts(accounts.filter(account=> account.id != deleteId)));
+        setDeleteBox(false);
+    }
+
+    const handleCancel =() =>{
+        setDeleteBox(false);
     }
 
     const handleCreateNew = () =>{
@@ -54,14 +62,26 @@ export function AccountsList() {
     const inrPortfolioValue = inrPortfolios.map(p => p.totalValue).reduce((a,b) => a+b, 0);
     const usdPortfolioValue = usdPortfolios.map(p => p.totalValue).reduce((a,b) => a+b, 0);
 
-
     return (
         <div>
             {alerts == "success" && <Alert severity="success">Account Saved Successfully</Alert>}
             {alerts == "success-create" && <Alert severity="success">Account Created Successfully</Alert>}
             {alerts == "success-delete" && <Alert severity="success">Account Deleted Successfully</Alert>}
 
-            <h1>Portfolio Summary By Currency</h1>
+            <Dialog
+                fullScreen={fullScreen}
+                aria-labelledby="responsive-dialog-title"
+                open={deleteBox}>
+                <DialogTitle id="responsive-dialog-title">{"Delete Account"}</DialogTitle>
+                Are you sure you want to delete account?
+                <DialogActions>
+                    <Button onClick={handleConfirm}>OK</Button>
+                    <Button onClick={handleCancel}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
+
+            <h1>Portfolio Summary</h1>
+            <h3>By Currency</h3>
             <h5>INR Value - {inrPortfolioValue} </h5>
             <h5>USD value - {usdPortfolioValue} </h5>
             <h1>Accounts <Button variant="contained" onClick={() => handleCreateNew()} sx={{ marginLeft: 100}}>+ Add New Account</Button></h1>
@@ -96,7 +116,6 @@ export function AccountsList() {
                 </Table>
             </TableContainer>
         </div>
-
     )
 }
 
