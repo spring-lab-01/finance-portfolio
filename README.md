@@ -26,12 +26,24 @@ created from - https://start.spring.io/
 ```
 mvn package 
 ```
-- run command to start application 
+
+
+- start application using java command
 ```
-java -jar .\target\backend-0.0.1-SNAPSHOT.jar
+java -jar backend-0.0.1-SNAPSHOT.jar
+```
+
+- alternatively you can start application using docker
+```
+docker compose up --build -d
+```
+
+run below command to stop containers
+```
+docker compose down
 ```
 
 - Application will start at - http://localhost:8080
 - login using 
-  - username - admin@email.com
+  - username - user@email.com
   - password - password

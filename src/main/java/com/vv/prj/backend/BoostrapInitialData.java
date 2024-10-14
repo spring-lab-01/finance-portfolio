@@ -19,6 +19,6 @@ public class BoostrapInitialData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        userRepository.save(new User("admin","admin@email.com", passwordEncoder.encode("password")));
+        userRepository.save(new User("user","user@email.com", passwordEncoder.encode("password")));
     }
 }
